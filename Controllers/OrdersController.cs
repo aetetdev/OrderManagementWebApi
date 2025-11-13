@@ -1,6 +1,6 @@
 ﻿namespace OrderManagementWebApi.Controllers
 {
-    public class Class
+    public class OrdersController
     {
     }
 }
