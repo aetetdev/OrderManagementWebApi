@@ -18,6 +18,7 @@ namespace OrderManagementWebApi.Data
             modelBuilder.Entity<Product>(b =>
             {
                 b.HasKey(p => p.Id);
+                b.Property(p => p.Id).ValueGeneratedOnAdd();
                 b.Property(p => p.Name).HasMaxLength(200).IsRequired();
                 b.Property(p => p.Price).HasColumnType("decimal(18,2)");
             });
@@ -25,6 +26,7 @@ namespace OrderManagementWebApi.Data
             modelBuilder.Entity<Order>(b =>
             {
                 b.HasKey(o => o.Id);
+                b.Property(o => o.Id).ValueGeneratedOnAdd();
                 b.Property(o => o.CreatedAt).IsRequired();
                 b.HasMany(o => o.Items)
                  .WithOne(i => i.Order!)
@@ -35,6 +37,7 @@ namespace OrderManagementWebApi.Data
             modelBuilder.Entity<OrderItem>(b =>
             {
                 b.HasKey(i => i.Id);
+                b.Property(i => i.Id).ValueGeneratedOnAdd();
                 b.Property(i => i.ProductName).HasMaxLength(200).IsRequired();
             });
         }

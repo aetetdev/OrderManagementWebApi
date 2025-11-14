@@ -1,6 +1,12 @@
-﻿namespace OrderManagementWebApi.Repositories
+﻿using OrderManagementWebApi.Models;
+
+namespace OrderManagementWebApi.Repositories
 {
-    public class IOrderRepository
+    public interface IOrderRepository
     {
+        Task AddAsync(Order order);
+        Task<Order?> GetByIdAsync(int id);
+        Task<IEnumerable<Order>> GetByUserIdAsync(int userId);
+        Task DeleteAsync(int id);
     }
 }
