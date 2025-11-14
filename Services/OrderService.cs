@@ -20,8 +20,14 @@ namespace OrderManagementWebApi.Services
             foreach (var it in dto.Items)
             {
                 var prod = await _productRepo.GetByIdAsync(it.ProductId);
-                if (prod == null) return (false, $"Product {it.ProductId} not found", null);
-                if (prod.Stock < it.Quantity) return (false, $"Insufficient stock for product {prod.Name}", null);
+                if (prod == null) 
+                { 
+                    return (false, $"{it.ProductId} Numaralı ürün bulunamadı", null); 
+                }
+                if (prod.Stock < it.Quantity) 
+                { 
+                    return (false, $"{prod.Name} isimli üründen {prod.Stock} adet var {it.Quantity} sipariş verilemez", null); 
+                }
                 items.Add(new OrderItem { ProductId = prod.Id, ProductName = prod.Name, Quantity = it.Quantity, UnitPrice = prod.Price });
             }
             // deduct stock and save
