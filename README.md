@@ -76,9 +76,9 @@ Tüm endpoint'ler base path: `/api`
  - Body (JSON):
  ```json
  {
- "name": "Yeni Ürün",
- "stock":10,
- "price":12.5
+	 "name": "Yeni Ürün",
+	 "stock":10,
+	 "price":12.5
  }
  ```
  - Response: `201 Created` ve oluþturulan ürün objesi (id dahil, integer)
@@ -88,10 +88,13 @@ Tüm endpoint'ler base path: `/api`
  - Body (JSON):
  ```json
  {
- "userId":1,
- "items": [
- { "productId":1, "quantity":2 }
- ]
+	"userId":1,
+	"items": [
+		{ 
+			"productId":1, 
+			"quantity":2 
+		}
+	]
  }
  ```
  - Davranýþ:
@@ -121,21 +124,11 @@ Tüm endpoint'ler base path: `/api`
 ## Hatalar ve dönüþler (özet)
 
 -400 Bad Request
- - `{"error":"Product {id} not found"}` — gönderilen productId veritabanýnda yoksa
- - `{"error":"Insufficient stock for product {name}"}` — istenen miktar stoktan büyükse
+ - `{"error":"{id} Numaralý ürün bulunamadý"}` — gönderilen productId veritabanýnda yoksa
+ - `{"error":"{name} isimli üründen {stock} adet var {quantity} sipariþ verilemez"}` — istenen miktar stoktan büyükse
 -404 Not Found
  - Kaynak yoksa (ör. GET /api/Products/{id} için geçersiz id)
 -201 Created
  - Baþarýlý oluþturma (Product veya Order)
 -204 No Content
  - Baþarýlý silme
-
-## Geliþtirme notlarý / öneriler
-
-- Mevcut implementasyonda sipariþ oluþturma sýrasýnda ürün stoklarýný güncelleme iþlemi basit bir döngü olarak yapýlýr. Yüksek eþzamanlýlýk gereken senaryolarda transaction ve satýr seviyesinde kilitleme/optimistic concurrency eklenmelidir.
-- Production için SQLite yerine SQL Server veya baþka bir sunucu tabanlý veritabaný tercih edin.
-- Authentication/Authorization eklemediyseniz, `userId` manuel veriliyor — gerçek uygulamada JWT veya benzeri auth mekanizmasý entegre edilmelidir.
-
----
-
-Kýsa yardým gerekiyorsa: uygulamayý çalýþtýrýn, Swagger'ý açýn ve sýrasýyla `POST /api/Products` ile ürün ekleyip sonra `POST /api/Orders` ile sipariþ oluþturun. Hata alýrsanýz tam hata çýktýsýný paylaþýn; yönlendireyim.
