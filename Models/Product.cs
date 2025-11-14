@@ -1,8 +1,10 @@
-﻿namespace OrderManagementWebApi.Models
+﻿using System;
+
+namespace OrderManagementWebApi.Models
 {
     public class Product
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public int Stock { get; set; }
         public decimal Price { get; set; }
